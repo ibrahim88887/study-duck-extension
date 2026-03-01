@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Study Duck 🦆",
+  "version": "3.0",
+  "description": "Your rubber duck study buddy — blocks Instagram, TikTok & Twitter so you can focus!",
+  "permissions": [
+    "declarativeNetRequest",
+    "storage",
+    "alarms"
+  ],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "block_rules",
+        "enabled": false,
+        "path": "rules.json"
+      }
+    ]
+  }
+}

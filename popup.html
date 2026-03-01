@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Study Duck</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0d12;
+    --card: #15151e;
+    --yellow: #fbbf24;
+    --yellow-dim: rgba(251,191,36,.15);
+    --yellow-glow: rgba(251,191,36,.3);
+    --orange: #f59e0b;
+    --red: #ef4444;
+    --red-glow: rgba(239,68,68,.28);
+    --text: #f1f5f9;
+    --muted: #64748b;
+    --border: rgba(255,255,255,.07);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  body {
+    width: 300px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Nunito', sans-serif;
+    padding: 18px 18px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  body::before {
+    content:'';
+    position:fixed; inset:0;
+    background: radial-gradient(ellipse at 50% -10%, rgba(251,191,36,.07) 0%, transparent 65%);
+    pointer-events:none;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .duck-logo {
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    background: var(--yellow-dim);
+    border: 1.5px solid rgba(251,191,36,.25);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    box-shadow: 0 0 16px var(--yellow-glow);
+  }
+  .duck-logo img { width: 34px; height: 34px; object-fit: contain; }
+
+  .header-text { flex:1; }
+  .header-text h1 { font-size: 16px; font-weight: 900; color: var(--text); letter-spacing: -.3px; }
+  .header-text p  { font-size: 10px; color: var(--muted); font-family: 'Space Mono', monospace; margin-top:1px; }
+
+  .pill {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    border: 1px solid;
+    transition: all .3s;
+    white-space: nowrap;
+  }
+  .pill.off { color: var(--muted); border-color: rgba(100,116,139,.25); }
+  .pill.on  { color: var(--red); border-color: rgba(239,68,68,.35); animation: blink 2s infinite; }
+  @keyframes blink { 0%,100%{ opacity:1 } 50%{ opacity:.55 } }
+
+  .ring-wrap {
+    display: flex;
+    justify-content: center;
+    margin: 2px 0 16px;
+    position: relative;
+  }
+  .ring-wrap svg { width:138px; height:138px; transform:rotate(-90deg); }
+  .ring-bg   { fill:none; stroke:rgba(255,255,255,.05); stroke-width:6; }
+  .ring-fill {
+    fill:none; stroke: var(--yellow); stroke-width:6;
+    stroke-linecap:round;
+    stroke-dasharray: 380;
+    stroke-dashoffset: 380;
+    transition: stroke-dashoffset 1s linear, stroke .3s;
+  }
+  .ring-fill.active { stroke: var(--red); }
+
+  .ring-center {
+    position:absolute; top:50%; left:50%;
+    transform:translate(-50%,-50%);
+    text-align:center;
+  }
+  .duck-center {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto 4px;
+    filter: drop-shadow(0 2px 8px var(--yellow-glow));
+    transition: filter .3s;
+  }
+  .duck-center.active {
+    animation: wobble 1.5s ease-in-out infinite;
+    filter: drop-shadow(0 2px 12px var(--red-glow));
+  }
+  @keyframes wobble {
+    0%,100%{ transform:rotate(-4deg) }
+    50%     { transform:rotate(4deg) }
+  }
+
+  .ring-time  {
+    font-family: 'Space Mono', monospace;
+    font-size: 22px; font-weight:700;
+    letter-spacing:-1px; line-height:1;
+  }
+  .ring-label { font-size:9px; color:var(--muted); margin-top:3px; font-family:'Space Mono',monospace; text-transform:uppercase; letter-spacing:1px; }
+
+  .chips { display:flex; gap:6px; margin-bottom:14px; }
+  .chip {
+    flex:1;
+    padding:7px 2px;
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:8px;
+    color:var(--muted);
+    font-size:11px;
+    font-family:'Space Mono',monospace;
+    cursor:pointer;
+    transition:all .2s;
+    text-align:center;
+  }
+  .chip:hover { border-color:rgba(251,191,36,.35); color:var(--yellow); }
+  .chip.active { background:rgba(251,191,36,.12); border-color:var(--yellow); color:var(--yellow); }
+
+  .btn {
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:12px;
+    font-family:'Nunito',sans-serif;
+    font-size:15px;
+    font-weight:900;
+    cursor:pointer;
+    transition:all .25s;
+    margin-bottom:14px;
+    display:flex; align-items:center; justify-content:center; gap:8px;
+  }
+  .btn-start {
+    background: linear-gradient(135deg, #d97706, var(--yellow));
+    color: #1c1000;
+    box-shadow: 0 4px 22px var(--yellow-glow);
+  }
+  .btn-start:hover { transform:translateY(-1px); box-shadow:0 6px 28px var(--yellow-glow); }
+  .btn-stop {
+    background: linear-gradient(135deg, #991b1b, var(--red));
+    color:white;
+    box-shadow:0 4px 22px var(--red-glow);
+  }
+  .btn:active { transform:scale(.98); }
+
+  .sites-label {
+    font-size:10px; color:var(--muted);
+    font-family:'Space Mono',monospace;
+    text-transform:uppercase; letter-spacing:1px;
+    margin-bottom:7px;
+  }
+  .sites { display:flex; gap:6px; flex-wrap:wrap; }
+  .site-tag {
+    padding:4px 11px;
+    background:rgba(239,68,68,.08);
+    border:1px solid rgba(239,68,68,.18);
+    border-radius:6px;
+    font-size:11px;
+    color:#fca5a5;
+    font-family:'Space Mono',monospace;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="duck-logo">
+    <img src="icon128.png" alt="duck">
+  </div>
+  <div class="header-text">
+    <h1>Study Duck 🦆</h1>
+    <p>FOCUS MODE</p>
+  </div>
+  <div class="pill off" id="pill">OFF</div>
+</div>
+
+<div class="ring-wrap">
+  <svg viewBox="0 0 140 140">
+    <circle class="ring-bg"   cx="70" cy="70" r="60"/>
+    <circle class="ring-fill" cx="70" cy="70" r="60" id="ringFill"/>
+  </svg>
+  <div class="ring-center">
+    <img src="icon128.png" class="duck-center" id="duckCenter" alt="duck">
+    <div class="ring-time"  id="ringTime">00:00</div>
+    <div class="ring-label" id="ringLabel">Pick duration</div>
+  </div>
+</div>
+
+<div class="chips" id="chips">
+  <div class="chip" data-min="25">25m</div>
+  <div class="chip active" data-min="45">45m</div>
+  <div class="chip" data-min="60">1h</div>
+  <div class="chip" data-min="90">1.5h</div>
+</div>
+
+<button class="btn btn-start" id="mainBtn">🚀 Start Studying</button>
+
+<div class="sites-label">Blocking</div>
+<div class="sites">
+  <div class="site-tag">Instagram</div>
+  <div class="site-tag">TikTok</div>
+  <div class="site-tag">Twitter / X</div>
+</div>
+
+<script src="popup.js"></script>
+</body>
+</html>

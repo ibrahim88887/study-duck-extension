@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Blocked 🦆</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: #050508;
+    color: #e2e8f0;
+    font-family: 'Nunito', sans-serif;
+    height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  body::before {
+    content:''; position:fixed; inset:0;
+    background:
+      radial-gradient(ellipse at 50% 50%, rgba(251,191,36,.06) 0%, transparent 60%),
+      linear-gradient(rgba(251,191,36,.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(251,191,36,.025) 1px, transparent 1px);
+    background-size: auto, 60px 60px, 60px 60px;
+    animation: grid 30s linear infinite;
+  }
+  @keyframes grid { to { background-position: auto, 60px 60px, 60px 60px; } }
+
+  .box {
+    position:relative; z-index:1;
+    text-align:center;
+    max-width:500px;
+    padding:44px 36px;
+    background:rgba(20,20,28,.9);
+    border:1px solid rgba(255,255,255,.07);
+    border-radius:28px;
+    backdrop-filter:blur(16px);
+  }
+
+  .duck-img {
+    width: 110px; height: 110px;
+    object-fit: contain;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 30px rgba(251,191,36,.45));
+    animation: bounce 1.2s ease-in-out infinite;
+  }
+  @keyframes bounce {
+    0%,100%{ transform: translateY(0) rotate(-3deg); }
+    50%    { transform: translateY(-12px) rotate(3deg); }
+  }
+
+  h1 {
+    font-size: 44px; font-weight:900;
+    background: linear-gradient(135deg, #fbbf24, #f97316);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    margin-bottom:10px;
+    line-height:1;
+  }
+  .sub {
+    font-size:16px; color:#94a3b8; line-height:1.7; margin-bottom:26px;
+  }
+
+  .timer-wrap {
+    display:inline-block;
+    background:rgba(251,191,36,.08);
+    border:1px solid rgba(251,191,36,.2);
+    border-radius:14px;
+    padding:14px 32px;
+    margin-bottom:26px;
+  }
+  .timer-label { font-size:11px; color:#d97706; font-family:'Space Mono',monospace; text-transform:uppercase; letter-spacing:1.5px; margin-bottom:5px; }
+  .timer-val   { font-size:34px; font-family:'Space Mono',monospace; font-weight:700; color:#fde68a; }
+
+  .quote {
+    font-size:15px; color:#475569;
+    border-top:1px solid rgba(255,255,255,.05);
+    padding-top:20px; margin-top:4px;
+    font-style:italic;
+  }
+  .quote strong { color:#d97706; }
+
+  .back {
+    display:inline-block;
+    margin-top:20px;
+    padding:10px 24px;
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:10px;
+    color:#64748b; font-size:13px;
+    cursor:pointer; transition:all .2s;
+    text-decoration:none;
+  }
+  .back:hover { background:rgba(255,255,255,.07); color:#e2e8f0; }
+</style>
+</head>
+<body>
+<div class="box">
+  <img src="icon128.png" class="duck-img" alt="Study Duck">
+  <h1>QUACK! 🚫</h1>
+  <p class="sub">
+    Study Mode is ON.<br>
+    This site is blocked — go back to your books!
+  </p>
+
+  <div class="timer-wrap">
+    <div class="timer-label">⏱ Time Remaining</div>
+    <div class="timer-val" id="tv">--:--</div>
+  </div>
+
+  <div class="quote" id="q">Loading quote…</div>
+  <a class="back" onclick="history.back()">← Go Back</a>
+</div>
+
+<script>
+const quotes = [
+  "1 hour of focus > 1 day of distraction.",
+  "The feed will still be there after your exam.",
+  "Future you is counting on present you.",
+  "Close the scroll, open the book.",
+  "Champions study. Then they scroll.",
+];
+document.getElementById('q').innerHTML = `<strong>${quotes[Math.floor(Math.random()*quotes.length)]}</strong>`;
+
+function pad(n){ return String(n).padStart(2,'0'); }
+async function tick(){
+  try {
+    const d = await chrome.storage.local.get(['studyMode','sessionStart','sessionDuration']);
+    if(!d.studyMode){ document.getElementById('tv').textContent='--:--'; return; }
+    const rem = Math.max(d.sessionDuration*60 - Math.floor((Date.now()-d.sessionStart)/1000), 0);
+    document.getElementById('tv').textContent = `${pad(Math.floor(rem/60))}:${pad(rem%60)}`;
+  } catch(e){}
+}
+tick(); setInterval(tick,1000);
+</script>
+</body>
+</html>
