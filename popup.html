@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Study Duck</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="app-header">
+      <span class="duck-emoji" aria-hidden="true">🦆</span>
+      <div class="header-text">
+        <h1>Study Duck</h1>
+        <p class="header-sub">Your productivity companion</p>
+      </div>
+    </header>
+
+    <!-- Tab navigation -->
+    <nav class="tab-nav" role="tablist">
+      <button class="tab-btn active" data-tab="chat" role="tab" aria-selected="true">
+        <span class="tab-icon">💬</span>Chat
+      </button>
+      <button class="tab-btn" data-tab="timer" role="tab" aria-selected="false">
+        <span class="tab-icon">⏱</span>Timer
+      </button>
+      <button class="tab-btn" data-tab="tasks" role="tab" aria-selected="false">
+        <span class="tab-icon">✅</span>Tasks
+      </button>
+    </nav>
+
+    <!-- ── CHAT TAB ─────────────────────────────────── -->
+    <section class="tab-panel active" id="tab-chat" role="tabpanel">
+      <div class="chat-messages" id="chat-messages" aria-live="polite"></div>
+      <div class="chat-input-row">
+        <textarea
+          id="chat-input"
+          placeholder="Explain your problem to the duck…"
+          rows="3"
+          aria-label="Message to duck"
+        ></textarea>
+        <button id="chat-send" class="btn btn-primary" aria-label="Send message">
+          Send
+        </button>
+      </div>
+      <button id="chat-clear" class="btn btn-ghost btn-sm">Clear chat</button>
+    </section>
+
+    <!-- ── TIMER TAB ────────────────────────────────── -->
+    <section class="tab-panel" id="tab-timer" role="tabpanel">
+      <!-- Mode selector -->
+      <div class="mode-row">
+        <button class="mode-btn active" data-mode="focus">Focus</button>
+        <button class="mode-btn" data-mode="short-break">Short Break</button>
+        <button class="mode-btn" data-mode="long-break">Long Break</button>
+      </div>
+
+      <!-- Clock display -->
+      <div class="clock-wrap">
+        <svg class="progress-ring" viewBox="0 0 120 120" aria-hidden="true">
+          <circle class="ring-track" cx="60" cy="60" r="54" />
+          <circle class="ring-fill" id="ring-fill" cx="60" cy="60" r="54" />
+        </svg>
+        <div class="clock-face">
+          <span id="timer-display" class="timer-digits">25:00</span>
+          <span id="timer-mode-label" class="timer-mode-label">Focus</span>
+        </div>
+      </div>
+
+      <!-- Controls -->
+      <div class="timer-controls">
+        <button id="timer-start" class="btn btn-primary">Start</button>
+        <button id="timer-reset" class="btn btn-outline">Reset</button>
+      </div>
+
+      <!-- Pomodoro count -->
+      <p class="pomodoro-count">
+        Pomodoros today: <strong id="pomodoro-count">0</strong>
+      </p>
+
+      <!-- Settings (collapsible) -->
+      <details class="timer-settings">
+        <summary class="settings-toggle">⚙ Settings</summary>
+        <div class="settings-grid">
+          <label>
+            Focus (min)
+            <input type="number" id="set-focus" min="1" max="90" value="25" />
+          </label>
+          <label>
+            Short break (min)
+            <input type="number" id="set-short" min="1" max="30" value="5" />
+          </label>
+          <label>
+            Long break (min)
+            <input type="number" id="set-long" min="1" max="60" value="15" />
+          </label>
+        </div>
+        <button id="settings-save" class="btn btn-primary btn-sm">Save</button>
+      </details>
+    </section>
+
+    <!-- ── TASKS TAB ────────────────────────────────── -->
+    <section class="tab-panel" id="tab-tasks" role="tabpanel">
+      <div class="task-add-row">
+        <input
+          type="text"
+          id="task-input"
+          placeholder="Add a new task…"
+          aria-label="New task"
+          maxlength="120"
+        />
+        <button id="task-add" class="btn btn-primary" aria-label="Add task">Add</button>
+      </div>
+      <ul class="task-list" id="task-list" aria-label="Task list"></ul>
+      <p class="tasks-empty hidden" id="tasks-empty">
+        No tasks yet — add one above! 🦆
+      </p>
+      <div class="task-footer">
+        <span id="tasks-summary"></span>
+        <button id="tasks-clear-done" class="btn btn-ghost btn-sm">Clear done</button>
+      </div>
+    </section>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
