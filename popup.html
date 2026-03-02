@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Study Duck</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0d0d12;
@@ -24,7 +23,7 @@
     width: 300px;
     background: var(--bg);
     color: var(--text);
-    font-family: 'Nunito', sans-serif;
+    font-family: system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     padding: 18px 18px 20px;
     position: relative;
     overflow: hidden;
@@ -56,10 +55,10 @@
 
   .header-text { flex:1; }
   .header-text h1 { font-size: 16px; font-weight: 900; color: var(--text); letter-spacing: -.3px; }
-  .header-text p  { font-size: 10px; color: var(--muted); font-family: 'Space Mono', monospace; margin-top:1px; }
+  .header-text p  { font-size: 10px; color: var(--muted); font-family: Consolas, 'Courier New', monospace; margin-top:1px; }
 
   .pill {
-    font-family: 'Space Mono', monospace;
+    font-family: Consolas, 'Courier New', monospace;
     font-size: 10px;
     padding: 3px 10px;
     border-radius: 20px;
@@ -112,11 +111,11 @@
   }
 
   .ring-time  {
-    font-family: 'Space Mono', monospace;
+    font-family: Consolas, 'Courier New', monospace;
     font-size: 22px; font-weight:700;
     letter-spacing:-1px; line-height:1;
   }
-  .ring-label { font-size:9px; color:var(--muted); margin-top:3px; font-family:'Space Mono',monospace; text-transform:uppercase; letter-spacing:1px; }
+  .ring-label { font-size:9px; color:var(--muted); margin-top:3px; font-family:Consolas,'Courier New',monospace; text-transform:uppercase; letter-spacing:1px; }
 
   .chips { display:flex; gap:6px; margin-bottom:14px; }
   .chip {
@@ -127,7 +126,7 @@
     border-radius:8px;
     color:var(--muted);
     font-size:11px;
-    font-family:'Space Mono',monospace;
+    font-family:Consolas,'Courier New',monospace;
     cursor:pointer;
     transition:all .2s;
     text-align:center;
@@ -140,7 +139,7 @@
     padding:12px;
     border:none;
     border-radius:12px;
-    font-family:'Nunito',sans-serif;
+    font-family:system-ui,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
     font-size:15px;
     font-weight:900;
     cursor:pointer;
@@ -163,7 +162,7 @@
 
   .sites-label {
     font-size:10px; color:var(--muted);
-    font-family:'Space Mono',monospace;
+    font-family:Consolas,'Courier New',monospace;
     text-transform:uppercase; letter-spacing:1px;
     margin-bottom:7px;
   }
@@ -175,7 +174,7 @@
     border-radius:6px;
     font-size:11px;
     color:#fca5a5;
-    font-family:'Space Mono',monospace;
+    font-family:Consolas,'Courier New',monospace;
   }
 </style>
 </head>

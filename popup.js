@@ -12,12 +12,13 @@ const duckCenter = document.getElementById('duckCenter');
 const CIRCUMFERENCE = 2 * Math.PI * 60;
 
 chips.querySelectorAll('.chip').forEach(c => {
-  c.addEventListener('click', () => {
+  c.addEventListener('click', async () => {
     if (c.dataset.disabled) return;
     chips.querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
     c.classList.add('active');
     selectedMin = parseInt(c.dataset.min);
-    if (!isStudying()) updateIdle();
+    const studying = await isStudying();
+    if (!studying) updateIdle();
   });
 });
 

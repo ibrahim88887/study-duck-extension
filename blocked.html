@@ -3,13 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Blocked 🦆</title>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
   body {
     background: #050508;
     color: #e2e8f0;
-    font-family: 'Nunito', sans-serif;
+    font-family: system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     height: 100vh;
     display: flex; align-items: center; justify-content: center;
     overflow: hidden;
@@ -67,8 +66,8 @@
     padding:14px 32px;
     margin-bottom:26px;
   }
-  .timer-label { font-size:11px; color:#d97706; font-family:'Space Mono',monospace; text-transform:uppercase; letter-spacing:1.5px; margin-bottom:5px; }
-  .timer-val   { font-size:34px; font-family:'Space Mono',monospace; font-weight:700; color:#fde68a; }
+  .timer-label { font-size:11px; color:#d97706; font-family:Consolas,'Courier New',monospace; text-transform:uppercase; letter-spacing:1.5px; margin-bottom:5px; }
+  .timer-val   { font-size:34px; font-family:Consolas,'Courier New',monospace; font-weight:700; color:#fde68a; }
 
   .quote {
     font-size:15px; color:#475569;
@@ -107,29 +106,9 @@
   </div>
 
   <div class="quote" id="q">Loading quote…</div>
-  <a class="back" onclick="history.back()">← Go Back</a>
+  <a class="back" id="backBtn">← Go Back</a>
 </div>
 
-<script>
-const quotes = [
-  "1 hour of focus > 1 day of distraction.",
-  "The feed will still be there after your exam.",
-  "Future you is counting on present you.",
-  "Close the scroll, open the book.",
-  "Champions study. Then they scroll.",
-];
-document.getElementById('q').innerHTML = `<strong>${quotes[Math.floor(Math.random()*quotes.length)]}</strong>`;
-
-function pad(n){ return String(n).padStart(2,'0'); }
-async function tick(){
-  try {
-    const d = await chrome.storage.local.get(['studyMode','sessionStart','sessionDuration']);
-    if(!d.studyMode){ document.getElementById('tv').textContent='--:--'; return; }
-    const rem = Math.max(d.sessionDuration*60 - Math.floor((Date.now()-d.sessionStart)/1000), 0);
-    document.getElementById('tv').textContent = `${pad(Math.floor(rem/60))}:${pad(rem%60)}`;
-  } catch(e){}
-}
-tick(); setInterval(tick,1000);
-</script>
+<script src="blocked.js"></script>
 </body>
 </html>

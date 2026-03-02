@@ -1,8 +1,10 @@
 # Study Duck Extension
 
-Remind yourself to stay focused and explain your code. **Study Healthy, Study Smart!** ([Video demo](To be added))
+Remind yourself to stay focused and explain your code. **Study Healthy, Study Smart!** (https://youtu.be/mqRXL7bKNmk)
 
 ## Description
+
+A dead-simple Chrome extension that keeps you from getting distracted. One click and distracting sites (Instagram, TikTok, Twitter, etc.) are blocked so you can get back to work.
 
 I created **Study Duck** as a solution for students and developers who spend long hours coding. It is common to get stuck on a single bug for hours or lose track of time entirely, leading to mental burnout.
 
@@ -46,7 +48,7 @@ You can reach out to me if you have any questions:
 
 ## Version History
 
-- **1.0**
+- **3.0**
   - Initial commit / CS50 Final Project submission.
 
 ## License
